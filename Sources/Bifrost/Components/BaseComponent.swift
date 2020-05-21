@@ -12,5 +12,5 @@ class BaseComponent: NSObject, ComponentDelegate {
         super.init()
     }
     
-    func applyViewsFromJson(dynamicComponent: DynamicComponent, actionDelegate: DynamicActionDelegate) throws -> UIView { fatalError("Must be override") }
+    func applyViewsFromJson(dynamicComponent: DynamicComponent, actionDelegate: DynamicActionDelegate) throws -> UIView { fatalError("Must be overriden") }
 }

@@ -25,7 +25,7 @@ class LabelComponent: BaseComponent {
     fileprivate let kLabelComponentTitleInsetBottom = CGFloat(4)
     fileprivate let kLabelComponentTitleInsetLeft = CGFloat(8)
     fileprivate let kLabelComponentTitleInsetRight = CGFloat(8)
-    fileprivate let kLabelComponentNumberOfLines = 5
+    fileprivate let kLabelComponentNumberOfLines = 0
     fileprivate let kLabelComponentLeadingConstraint = CGFloat(16)
     fileprivate let kButtonComponentTrailingConstraint = CGFloat(-16)
     fileprivate let kLabelComponentTopConstraint = CGFloat(0)
@@ -38,7 +38,7 @@ class LabelComponent: BaseComponent {
         
             self.label = UILabel()
             self.label.numberOfLines = kLabelComponentNumberOfLines
-            self.label.adjustsFontSizeToFitWidth = true
+            self.label.adjustsFontSizeToFitWidth = false
             self.label.lineBreakMode = .byClipping
             self.label.baselineAdjustment = .alignCenters
             try self.addProperties(properties: dynamicComponent.properties)
@@ -67,7 +67,7 @@ class LabelComponent: BaseComponent {
     private func identityAndApplyProperties(property: DynamicProperty) throws {
         guard let textViewProperty = LabelViewProperty(rawValue: property.name),
             let applier = propertyDictionary[textViewProperty] else {
-                throw ParseError.unknownProperty
+                throw ParseError.unknownProperty("\(property.name) of type \(property.type) and value: \(property.value)")
         }
         
         _ = try applier?.apply(value: property.value, to: label)

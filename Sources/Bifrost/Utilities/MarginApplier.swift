@@ -11,4 +11,12 @@ class MarginApplier {
             .trailingAnchor(equalTo: view.trailingAnchor, constant: gravity.right)
             .bottomAnchor(equalTo: view.bottomAnchor, constant: gravity.bottom)
     }
+    
+    func tryApplyMargin(margin: Margin, to view: UIView, in container: UIView) {
+        view
+            .topAnchor(equalTo: container.topAnchor, constant: margin.top)
+            .leadingAnchor(equalTo: container.leadingAnchor, constant: margin.left)
+            .trailingAnchor(equalTo: container.trailingAnchor, constant: -margin.right)
+            .bottomAnchor(equalTo: container.bottomAnchor, constant: -margin.bottom)
+    }
 }

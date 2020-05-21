@@ -5,14 +5,16 @@ fileprivate enum ImageProperty: String {
     case url = "url"
     case width = "width"
     case height = "height"
+    case aspectRatio = "aspectRatio"
 }
 
 class ImageComponent: BaseComponent {
     
-    private var propertyDictionary: [ImageProperty: AnyPropertyApplier<UIImageView>] =
-        [.url: AnyPropertyApplier(KingfisherApplier()),
-         .width: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .width)),
-         .height: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .height))
+    private var propertyDictionary: [ImageProperty: AnyPropertyApplier<UIImageView>] = [
+        .url: AnyPropertyApplier(KingfisherApplier()),
+        .width: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .width)),
+        .height: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .height)),
+        .aspectRatio: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .aspectRatio))
     ]
     
     fileprivate let kImageComponentType = "image"
@@ -43,7 +45,7 @@ extension ImageComponent {
     private func identityAndApplyProperties(property: DynamicProperty) throws {
         guard let textViewProperty = ImageProperty(rawValue: property.name),
             let applier = propertyDictionary[textViewProperty] else {
-                throw ParseError.unknownProperty
+                throw ParseError.unknownProperty("\(property.name) of type \(property.type) and value: \(property.value)")
         }
         
         _ = try applier.apply(value: property.value, to: imageView)

@@ -1,5 +1,5 @@
 
 enum ParseError: Error {
     case invalidType
-    case unknownProperty
+    case unknownProperty(String)
 }

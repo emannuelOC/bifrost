@@ -22,7 +22,7 @@ class ElementGroupComponent: BaseComponent {
             
             self.addProperties(properties: dynamicComponent.properties)
             setUpStackView()
-            addChild(dynamicComponent.children ?? [], action: actionDelegate)
+            try addChild(dynamicComponent.children ?? [], action: actionDelegate)
         return self.stackView
         
     }
@@ -77,9 +77,9 @@ extension ElementGroupComponent {
 // MARK: - Add Child elements
 
 extension ElementGroupComponent {
-    private func addChild(_ childs: [DynamicComponent], action: DynamicActionDelegate) {
+    private func addChild(_ childs: [DynamicComponent], action: DynamicActionDelegate) throws {
         for child in childs {
-            let view = try! DynamicView.createView(dynamicsComponent: child, actionDelegate: action)
+            let view = try DynamicView.createView(dynamicsComponent: child, actionDelegate: action)
             let marginView = UIView()
             
             marginView.translatesAutoresizingMaskIntoConstraints = false
