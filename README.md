@@ -1,3 +1,3 @@
 # Bifrost
 
-![Logo](Images/bifrost.jpeg)
+![Logo](Images/bifrost.jpeg "Logo")
