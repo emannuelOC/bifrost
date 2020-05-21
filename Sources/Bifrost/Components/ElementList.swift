@@ -65,14 +65,15 @@ private class ElementListView: UIView, UITableViewDataSource, UITableViewDelegat
             v.removeFromSuperview()
         }
         let component = components[indexPath.row]
-        let view = try! DynamicView.createView(dynamicsComponent: component,
-                                          actionDelegate: delegate)
-        cell.contentView.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
+        if let view = try? DynamicView.createView(dynamicsComponent: component,
+                                                  actionDelegate: delegate) {
+            cell.contentView.addSubview(view)
+            view.translatesAutoresizingMaskIntoConstraints = false
         
-        let marginApplier = MarginApplier()
-        marginApplier.tryApplyMargin(component: component, to: view, in: cell.contentView)
         
+            let marginApplier = MarginApplier()
+            marginApplier.tryApplyMargin(component: component, to: view, in: cell.contentView)
+        }
         return cell
     }
     

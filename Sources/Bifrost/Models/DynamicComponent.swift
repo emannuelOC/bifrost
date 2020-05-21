@@ -27,28 +27,29 @@ public class DynamicComponent: NSObject, BaseModelProtocol {
         self.properties = properties
     }
     
-    public static func parse(dictionary: [String: Any]) -> DynamicComponent {
+    public static func parse(dictionary: [String: Any]) throws -> DynamicComponent {
         let dynamicComponent = DynamicComponent()
-        dynamicComponent.children = self.parseChildrenArray(dictionary: dictionary)
-        dynamicComponent.properties = self.parsePropertiesArray(dictionary: dictionary)
+        dynamicComponent.children = try self.parseChildrenArray(dictionary: dictionary)
+        dynamicComponent.properties = try self.parsePropertiesArray(dictionary: dictionary)
         fillWithDictionary(&dynamicComponent.type, key: kType, dictionary: dictionary)
         return dynamicComponent
     }
     
-    static private func parseChildrenArray(dictionary: [String: Any]) -> [DynamicComponent] {
+    static private func parseChildrenArray(dictionary: [String: Any]) throws -> [DynamicComponent] {
         var childrenArray = [DynamicComponent]()
         if let childrenDictionary = dictionary[kChildren] as? [[String : Any]] {
             for item in childrenDictionary {
-                childrenArray.append(DynamicComponent.parse(dictionary: item))
+                let child = try DynamicComponent.parse(dictionary: item)
+                childrenArray.append(child)
             }
         }
         return childrenArray
     }
     
-    static private func parsePropertiesArray(dictionary: [String: Any]) -> [DynamicProperty] {
+    static private func parsePropertiesArray(dictionary: [String: Any]) throws -> [DynamicProperty] {
         if let propertiesDictionary = dictionary[kProperties] as? [[String : Any]] {
-           return propertiesDictionary.compactMap({
-                return try! DynamicProperty(dictionary: $0)
+           return try propertiesDictionary.compactMap({
+                return try DynamicProperty(dictionary: $0)
             })
         }
         return []
