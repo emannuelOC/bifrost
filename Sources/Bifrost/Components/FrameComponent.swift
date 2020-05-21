@@ -19,9 +19,9 @@ class FrameComponent: BaseComponent {
     
     override func applyViewsFromJson(dynamicComponent: DynamicComponent,
                                      actionDelegate: DynamicActionDelegate) throws -> UIView {
-        try addProperties(properties: dynamicComponent.properties)
         let view = try FrameComponentView(items: dynamicComponent.children ?? [], delegate: actionDelegate)
         self.view = view
+        try addProperties(properties: dynamicComponent.properties)
         return view
         
     }
