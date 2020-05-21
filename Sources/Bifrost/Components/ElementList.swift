@@ -51,6 +51,7 @@ private class ElementListView: UIView, UITableViewDataSource, UITableViewDelegat
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.estimatedRowHeight = 300
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .none
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TableCell")
         return tableView
     }()
