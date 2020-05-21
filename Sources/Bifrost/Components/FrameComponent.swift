@@ -46,7 +46,7 @@ extension FrameComponent {
         guard let margin = properties.first(where: { $0.name == FrameProperty.margin.rawValue })?.value as? Margin else {
             return
         }
-        marginApplier.tryApplyMargin(margin: margin, to: superview, in: superview)
+        marginApplier.tryApplyMargin(margin: margin, to: view, in: superview)
     }
     
     private func identityAndApplyProperties(property: DynamicProperty) throws {
