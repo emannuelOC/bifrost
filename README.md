@@ -1,3 +1,3 @@
 # Bifrost
 
-A description of this package.
+![Logo](Images/bifrost.jpeg)
