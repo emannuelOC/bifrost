@@ -25,7 +25,7 @@ class LabelComponent: BaseComponent {
     fileprivate let kLabelComponentTitleInsetBottom = CGFloat(4)
     fileprivate let kLabelComponentTitleInsetLeft = CGFloat(8)
     fileprivate let kLabelComponentTitleInsetRight = CGFloat(8)
-    fileprivate let kLabelComponentNumberOfLines = 5
+    fileprivate let kLabelComponentNumberOfLines = 0
     fileprivate let kLabelComponentLeadingConstraint = CGFloat(16)
     fileprivate let kButtonComponentTrailingConstraint = CGFloat(-16)
     fileprivate let kLabelComponentTopConstraint = CGFloat(0)
