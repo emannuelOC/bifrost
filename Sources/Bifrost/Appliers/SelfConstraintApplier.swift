@@ -24,7 +24,7 @@ public class SelfConstraintApplier<V: UIView>: TypedPropertyApplier {
         case .height:
             view.heightAnchor.constraint(equalToConstant: value).isActive = true
         case .aspectRatio:
-            view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: value).isActive = true
+            view.widthAnchor.constraint(equalTo: view.heightAnchor, multiplier: value).isActive = true
         }
         
         return view
