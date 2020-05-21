@@ -9,10 +9,10 @@ fileprivate enum ImageProperty: String {
 
 class ImageComponent: BaseComponent {
     
-    private var propertyDictionary: [ImageProperty: AnyPropertyApplier<UIImageView>] =
-        [.url: AnyPropertyApplier(KingfisherApplier()),
-         .width: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .width)),
-         .height: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .height))
+    private var propertyDictionary: [ImageProperty: AnyPropertyApplier<UIImageView>] = [
+        .url: AnyPropertyApplier(KingfisherApplier()),
+        .width: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .width)),
+        .height: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .height))
     ]
     
     fileprivate let kImageComponentType = "image"

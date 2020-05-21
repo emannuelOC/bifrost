@@ -1,13 +1,23 @@
 
 import UIKit
 
+fileprivate enum FrameProperty: String {
+    case width = "width"
+    case height = "height"
+}
+
 class FrameComponent: BaseComponent {
     
     fileprivate let kFrameComponentType = "frame"
     
+    private var propertyDictionary: [FrameProperty: AnyPropertyApplier<UIView>] = [
+        .width: AnyPropertyApplier(SelfConstraintApplier<UIView>(dimension: .width)),
+        .height: AnyPropertyApplier(SelfConstraintApplier<UIView>(dimension: .height))
+    ]
+    
     override func applyViewsFromJson(dynamicComponent: DynamicComponent,
                                      actionDelegate: DynamicActionDelegate) throws -> UIView {
-        
+        try addProperties(properties: dynamicComponent.properties)
         let view = try FrameComponentView(items: dynamicComponent.children ?? [], delegate: actionDelegate)
         return view
         
