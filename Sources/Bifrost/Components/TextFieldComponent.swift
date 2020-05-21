@@ -65,7 +65,7 @@ class TextFieldComponent: BaseComponent {
     private func identityAndApplyProperties(property: DynamicProperty) throws {
         guard let textFieldProperty = TextFieldProperty(rawValue: property.name),
             let applier = propertyDictionary[textFieldProperty] else {
-                throw ParseError.unknownProperty
+                throw ParseError.unknownProperty("\(property.name) of type \(property.type) and value: \(property.value)")
         }
         
         _ = try applier.apply(value: property.value, to: textField)
