@@ -8,8 +8,8 @@ public class DynamicView: NSObject {
         
         if let componentType = components[dynamicsComponent.type ?? ""] {
             let comp = componentType.init()
-            return try! comp.applyViewsFromJson(dynamicComponent: dynamicsComponent,
-                                    actionDelegate: actionDelegate)
+            return try comp.applyViewsFromJson(dynamicComponent: dynamicsComponent,
+                                                actionDelegate: actionDelegate)
         } else {
             throw ParseError.invalidType
         }
