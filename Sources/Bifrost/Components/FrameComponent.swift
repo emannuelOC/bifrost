@@ -26,6 +26,7 @@ class FrameComponent: BaseComponent {
         let view = try FrameComponentView(items: dynamicComponent.children ?? [], delegate: actionDelegate)
         self.view = view
         superview.addSubview(view)
+        superview.translatesAutoresizingMaskIntoConstraints = false
         try addProperties(properties: dynamicComponent.properties)
         return superview
         

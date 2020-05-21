@@ -13,10 +13,10 @@ class MarginApplier {
     }
     
     func tryApplyMargin(margin: Margin, to view: UIView, in container: UIView) {
-        container
-            .topAnchor(equalTo: view.topAnchor, constant: -margin.top)
-            .leadingAnchor(equalTo: view.leadingAnchor, constant: -margin.left)
-            .trailingAnchor(equalTo: view.trailingAnchor, constant: margin.right)
-            .bottomAnchor(equalTo: view.bottomAnchor, constant: margin.bottom)
+        view
+            .topAnchor(equalTo: container.topAnchor, constant: margin.top)
+            .leadingAnchor(equalTo: container.leadingAnchor, constant: margin.left)
+            .trailingAnchor(equalTo: container.trailingAnchor, constant: -margin.right)
+            .bottomAnchor(equalTo: container.bottomAnchor, constant: -margin.bottom)
     }
 }
