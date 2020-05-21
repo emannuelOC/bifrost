@@ -5,6 +5,7 @@ fileprivate enum ImageProperty: String {
     case url = "url"
     case width = "width"
     case height = "height"
+    case aspectRatio = "aspectRatio"
 }
 
 class ImageComponent: BaseComponent {
@@ -12,7 +13,8 @@ class ImageComponent: BaseComponent {
     private var propertyDictionary: [ImageProperty: AnyPropertyApplier<UIImageView>] = [
         .url: AnyPropertyApplier(KingfisherApplier()),
         .width: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .width)),
-        .height: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .height))
+        .height: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .height)),
+        .aspectRatio: AnyPropertyApplier(SelfConstraintApplier<UIImageView>(dimension: .aspectRatio))
     ]
     
     fileprivate let kImageComponentType = "image"
