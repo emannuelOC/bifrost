@@ -4,6 +4,7 @@ import UIKit
 fileprivate enum FrameProperty: String {
     case width = "width"
     case height = "height"
+    case backgroundColor = "backgroundColor"
 }
 
 class FrameComponent: BaseComponent {
@@ -14,7 +15,8 @@ class FrameComponent: BaseComponent {
     
     private var propertyDictionary: [FrameProperty: AnyPropertyApplier<UIView>] = [
         .width: AnyPropertyApplier(SelfConstraintApplier<UIView>(dimension: .width)),
-        .height: AnyPropertyApplier(SelfConstraintApplier<UIView>(dimension: .height))
+        .height: AnyPropertyApplier(SelfConstraintApplier<UIView>(dimension: .height)),
+        .backgroundColor: AnyPropertyApplier(KeyPathApplier(\UIView.backgroundColor))
     ]
     
     override func applyViewsFromJson(dynamicComponent: DynamicComponent,
