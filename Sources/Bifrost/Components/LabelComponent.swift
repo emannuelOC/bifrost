@@ -38,7 +38,7 @@ class LabelComponent: BaseComponent {
         
             self.label = UILabel()
             self.label.numberOfLines = kLabelComponentNumberOfLines
-            self.label.adjustsFontSizeToFitWidth = true
+            self.label.adjustsFontSizeToFitWidth = false
             self.label.lineBreakMode = .byClipping
             self.label.baselineAdjustment = .alignCenters
             try self.addProperties(properties: dynamicComponent.properties)
