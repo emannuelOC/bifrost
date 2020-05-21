@@ -94,7 +94,7 @@ private class FrameComponentView: UIView {
             
             childView.translatesAutoresizingMaskIntoConstraints = false
             
-            if component.type == kFrameComponentType {
+            if component.type == "frame" {
                 childView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
                 childView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
                 childView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
