@@ -36,7 +36,10 @@ class FrameComponent: BaseComponent {
 extension FrameComponent {
     private func addProperties(properties: [DynamicProperty]?) throws {
         addMargin(properties: properties ?? [])
-        try properties?.filter({ $0.name != FrameProperty.margin.rawValue }).forEach({
+        addGravity(properties: properties ?? [])
+        try properties?
+            .filter({ $0.name != FrameProperty.margin.rawValue })
+            .filter({ $0.name != "gravity" }).forEach({
             try self.identityAndApplyProperties(property: $0)
         })
     }
@@ -48,6 +51,36 @@ extension FrameComponent {
         }
         if let view = view {
             marginApplier.tryApplyMargin(margin: margin, to: view, in: superview)
+        }
+    }
+    
+    private func addGravity(properties: [DynamicProperty]) {
+        if let gravity = properties.first(where: { $0.name == "gravity" })?.value as? Gravity {
+            switch gravity.vertical {
+            case .bottom:
+                view?.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+                view?.topAnchor.constraint(greaterThanOrEqualTo: superview.topAnchor).isActive = true
+            case .top:
+                view?.bottomAnchor.constraint(lessThanOrEqualTo: superview.bottomAnchor).isActive = true
+                view?.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
+            case .center:
+                view?.topAnchor.constraint(greaterThanOrEqualTo: superview.topAnchor).isActive = true
+                view?.bottomAnchor.constraint(lessThanOrEqualTo: superview.bottomAnchor).isActive = true
+                view?.centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
+            }
+            
+            switch gravity.horizontal {
+            case .left:
+                view?.leftAnchor.constraint(equalTo: superview.leftAnchor).isActive = true
+                view?.rightAnchor.constraint(lessThanOrEqualTo: superview.rightAnchor).isActive = true
+            case .right:
+                view?.leftAnchor.constraint(greaterThanOrEqualTo: superview.leftAnchor).isActive = true
+                view?.rightAnchor.constraint(equalTo: superview.rightAnchor).isActive = true
+            case .center:
+                view?.centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
+                view?.rightAnchor.constraint(lessThanOrEqualTo: superview.rightAnchor).isActive = true
+                view?.leftAnchor.constraint(greaterThanOrEqualTo: superview.leftAnchor).isActive = true
+            }
         }
     }
     
