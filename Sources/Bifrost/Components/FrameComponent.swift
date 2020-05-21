@@ -10,6 +10,8 @@ class FrameComponent: BaseComponent {
     
     fileprivate let kFrameComponentType = "frame"
     
+    var view: UIView?
+    
     private var propertyDictionary: [FrameProperty: AnyPropertyApplier<UIView>] = [
         .width: AnyPropertyApplier(SelfConstraintApplier<UIView>(dimension: .width)),
         .height: AnyPropertyApplier(SelfConstraintApplier<UIView>(dimension: .height))
@@ -19,8 +21,27 @@ class FrameComponent: BaseComponent {
                                      actionDelegate: DynamicActionDelegate) throws -> UIView {
         try addProperties(properties: dynamicComponent.properties)
         let view = try FrameComponentView(items: dynamicComponent.children ?? [], delegate: actionDelegate)
+        self.view = view
         return view
         
+    }
+}
+
+extension FrameComponent {
+    private func addProperties(properties: [DynamicProperty]?) throws {
+        try properties?.forEach({
+            try self.identityAndApplyProperties(property: $0)
+        })
+    }
+    
+    private func identityAndApplyProperties(property: DynamicProperty) throws {
+        guard let textViewProperty = FrameProperty(rawValue: property.name),
+            let applier = propertyDictionary[textViewProperty] else {
+                throw ParseError.unknownProperty
+        }
+        
+        guard let view = self.view else { return }
+        _ = try applier.apply(value: property.value, to: view)
     }
 }
 
