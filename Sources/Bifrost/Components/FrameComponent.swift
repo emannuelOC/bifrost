@@ -34,15 +34,18 @@ class FrameComponent: BaseComponent {
 
 extension FrameComponent {
     private func addProperties(properties: [DynamicProperty]?) throws {
-        addMargin(properties: properties)
+        addMargin(properties: properties ?? [])
         try properties?.filter({ $0.name != FrameProperty.margin.rawValue }).forEach({
             try self.identityAndApplyProperties(property: $0)
         })
     }
     
-    private func addMargin(properties: [DynamicProperty]?) {
+    private func addMargin(properties: [DynamicProperty]) {
         let marginApplier = MarginApplier()
-        marginApplier.tryApplyMargin(properties: properties ?? [], to: superview, in: superview)
+        guard let margin = properties.first(where: { $0.name == FrameProperty.margin.rawValue })?.value as? Margin else {
+            return
+        }
+        marginApplier.tryApplyMargin(margin: margin, to: superview, in: superview)
     }
     
     private func identityAndApplyProperties(property: DynamicProperty) throws {
