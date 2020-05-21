@@ -94,6 +94,14 @@ private class FrameComponentView: UIView {
             
             childView.translatesAutoresizingMaskIntoConstraints = false
             
+            if component.type == kFrameComponentType {
+                childView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+                childView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+                childView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+                childView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+                return
+            }
+            
             switch gravity.vertical {
             case .bottom:
                 childView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
