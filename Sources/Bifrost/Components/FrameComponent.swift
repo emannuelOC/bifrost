@@ -5,6 +5,7 @@ fileprivate enum FrameProperty: String {
     case width = "width"
     case height = "height"
     case backgroundColor = "backgroundColor"
+    case margin = "margin"
 }
 
 class FrameComponent: BaseComponent {
@@ -12,6 +13,7 @@ class FrameComponent: BaseComponent {
     fileprivate let kFrameComponentType = "frame"
     
     var view: UIView?
+    var superview = UIView()
     
     private var propertyDictionary: [FrameProperty: AnyPropertyApplier<UIView>] = [
         .width: AnyPropertyApplier(SelfConstraintApplier<UIView>(dimension: .width)),
@@ -23,6 +25,7 @@ class FrameComponent: BaseComponent {
                                      actionDelegate: DynamicActionDelegate) throws -> UIView {
         let view = try FrameComponentView(items: dynamicComponent.children ?? [], delegate: actionDelegate)
         self.view = view
+        superview.addSubview(view)
         try addProperties(properties: dynamicComponent.properties)
         return view
         
@@ -31,9 +34,15 @@ class FrameComponent: BaseComponent {
 
 extension FrameComponent {
     private func addProperties(properties: [DynamicProperty]?) throws {
-        try properties?.forEach({
+        addMargin(properties: properties)
+        try properties?.filter({ $0.name != FrameProperty.margin.rawValue }).forEach({
             try self.identityAndApplyProperties(property: $0)
         })
+    }
+    
+    private func addMargin(properties: [DynamicProperty]?) {
+        let marginApplier = MarginApplier()
+        marginApplier.tryApplyMargin(properties: properties ?? [], to: superview, in: superview)
     }
     
     private func identityAndApplyProperties(property: DynamicProperty) throws {
