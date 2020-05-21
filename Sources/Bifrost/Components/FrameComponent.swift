@@ -55,10 +55,7 @@ extension FrameComponent {
     }
     
     private func addGravity(properties: [DynamicProperty]) {
-        let filteredProperties = properties
-            .filter({ $0.name == "gravity" })
-            .compactMap({ $0.value as? Gravity })
-        for gravity in filteredProperties {
+        if let gravity = properties.first(where: { $0.name == "gravity" })?.value as? Gravity {
             switch gravity.vertical {
             case .bottom:
                 view?.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
