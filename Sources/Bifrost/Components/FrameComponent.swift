@@ -27,7 +27,7 @@ class FrameComponent: BaseComponent {
         self.view = view
         superview.addSubview(view)
         try addProperties(properties: dynamicComponent.properties)
-        return view
+        return superview
         
     }
 }
