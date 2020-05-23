@@ -4,7 +4,7 @@ import UIKit
 fileprivate enum ButtonProperty: String {
     case text = "text"
     case textColor = "textColor"
-//    case action = "action"
+    case action = "action"
     case backgroundColor = "backgroundColor"
     case textSize = "textSize"
 }
@@ -104,7 +104,10 @@ class ButtonComponent: BaseComponent {
     }
     
     private func addProperties(properties: [DynamicProperty]?) throws {
-        try properties?.forEach({
+        if let action = properties?.first(where: { $0.name == ButtonProperty.action.rawValue })?.value as? String {
+            self.button.action = action
+        }
+        try properties?.filter({ $0.name != ButtonProperty.action.rawValue }).forEach({
             try self.identityAndApplyProperties(property: $0)
         })
     }
