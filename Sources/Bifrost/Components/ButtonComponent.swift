@@ -113,8 +113,8 @@ class ButtonComponent: BaseComponent {
     }
     
     private func identityAndApplyProperties(property: DynamicProperty) throws {
-        guard let textViewProperty = ButtonProperty(rawValue: property.name),
-            let applier = propertyDictionary[textViewProperty] else {
+        guard let buttonProperty = ButtonProperty(rawValue: property.name),
+            let applier = propertyDictionary[buttonProperty] else {
                 throw ParseError.unknownProperty("\(property.name) of type \(property.type) and value: \(property.value)")
         }
         

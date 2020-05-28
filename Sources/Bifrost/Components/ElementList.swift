@@ -1,15 +1,40 @@
 
 import UIKit
 
+fileprivate enum ElementListProperty: String {
+    case backgroundColor = "backgroundColor"
+}
+
 class ElementList: BaseComponent {
+    
+    fileprivate var elementListView: ElementListView?
     
     override func applyViewsFromJson(dynamicComponent: DynamicComponent,
                                      actionDelegate: DynamicActionDelegate) throws -> UIView {
         
         let listView = ElementListView(items: dynamicComponent.children ?? [], delegate: actionDelegate)
         listView.translatesAutoresizingMaskIntoConstraints = false
+        self.elementListView = listView
+        self.addProperties(properties: dynamicComponent.properties)
         return listView
         
+    }
+    
+}
+
+extension ElementList {
+    
+    fileprivate func addProperties(properties: [DynamicProperty]?) {
+        guard let properties = properties else { return }
+        for property in properties {
+            self.identifyAndApply(property: property)
+        }
+    }
+    
+    fileprivate func identifyAndApply(property: DynamicProperty) {
+        if property.name == ElementListProperty.backgroundColor.rawValue {
+            elementListView?.color = property.value as? UIColor
+        }
     }
     
 }
@@ -22,6 +47,13 @@ private class ElementListView: UIView, UITableViewDataSource, UITableViewDelegat
         }
     }
     var delegate: DynamicActionDelegate
+    
+    var color: UIColor? {
+        didSet {
+            tableView.backgroundColor = color
+            tableView.reloadData()
+        }
+    }
     
     init(items: [DynamicComponent], delegate: DynamicActionDelegate) {
         self.components = items
@@ -62,6 +94,10 @@ private class ElementListView: UIView, UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath)
+        if let color = color {
+            cell.backgroundColor = color
+            cell.contentView.backgroundColor = color
+        }
         for v in cell.contentView.subviews {
             v.removeFromSuperview()
         }
