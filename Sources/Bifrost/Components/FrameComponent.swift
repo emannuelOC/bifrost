@@ -85,8 +85,8 @@ extension FrameComponent {
     }
     
     private func identityAndApplyProperties(property: DynamicProperty) throws {
-        guard let textViewProperty = FrameProperty(rawValue: property.name),
-            let applier = propertyDictionary[textViewProperty] else {
+        guard let frameProperty = FrameProperty(rawValue: property.name),
+            let applier = propertyDictionary[frameProperty] else {
                 throw ParseError.unknownProperty("\(property.name) of type \(property.type) and value: \(property.value)")
         }
         

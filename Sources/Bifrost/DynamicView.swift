@@ -3,7 +3,7 @@ import UIKit
 
 public class DynamicView: NSObject {
 
-    public static func createView(dynamicsComponent: DynamicComponent,
+    public func createView(dynamicsComponent: DynamicComponent,
                                   actionDelegate: DynamicActionDelegate) throws -> UIView {
         
         if let componentType = components[dynamicsComponent.type ?? ""] {
@@ -15,7 +15,11 @@ public class DynamicView: NSObject {
         }
     }
     
-    private static let components = [
+    public func registerComponent(name: String, type: BaseComponent.Type) {
+        components[name] = type
+    }
+    
+    private var components = [
         "text": LabelComponent.self,
         "button": ButtonComponent.self,
         "textField": TextFieldComponent.self,

@@ -3,7 +3,9 @@ import UIKit
 
 public class FloatTypeConverter: ConcreteTypeConverter<CGFloat> {
     override func validateForType(value: Any) -> CGFloat? {
-        if let stringValue = value as? String, let value = NumberFormatter().number(from: stringValue) {
+        let formatter = NumberFormatter()
+        formatter.locale = Locale(identifier: "en_US")
+        if let stringValue = value as? String, let value = formatter.number(from: stringValue) {
             return CGFloat(truncating: value)
         }
         
