@@ -1,7 +1,7 @@
 
 import UIKit
 
-class BaseComponent: NSObject, ComponentDelegate {
+public class BaseComponent: NSObject, ComponentDelegate {
     
     var topPadding: CGFloat?
     var bottomPadding: CGFloat?

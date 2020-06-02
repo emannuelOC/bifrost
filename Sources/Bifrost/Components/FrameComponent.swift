@@ -99,6 +99,8 @@ private class FrameComponentView: UIView {
     
     var components: [DynamicComponent]
     var delegate: DynamicActionDelegate
+    
+    let creator = DynamicViewCreator()
 
     init(items: [DynamicComponent], delegate: DynamicActionDelegate) throws {
         self.components = items
@@ -120,7 +122,7 @@ private class FrameComponentView: UIView {
     
     private func setupChilds() throws {
         for component in components {
-            let childView = try DynamicView.createView(dynamicsComponent: component, actionDelegate: delegate)
+            let childView = try creator.createView(dynamicsComponent: component, actionDelegate: delegate)
             self.addSubview(childView)
             
             childView.translatesAutoresizingMaskIntoConstraints = false

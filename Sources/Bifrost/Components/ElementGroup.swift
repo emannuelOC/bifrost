@@ -12,6 +12,8 @@ fileprivate enum ElementGroupOrientation: String {
 
 class ElementGroupComponent: BaseComponent {
     
+    let creator = DynamicViewCreator()
+    
     fileprivate let kElementGroupComponentType = "elementGroup"
     fileprivate var orientation = ElementGroupOrientation.vertical
     fileprivate var stackView: UIStackView!
@@ -79,7 +81,7 @@ extension ElementGroupComponent {
 extension ElementGroupComponent {
     private func addChild(_ childs: [DynamicComponent], action: DynamicActionDelegate) throws {
         for child in childs {
-            let view = try DynamicView.createView(dynamicsComponent: child, actionDelegate: action)
+            let view = try creator.createView(dynamicsComponent: child, actionDelegate: action)
             let marginView = UIView()
             
             marginView.translatesAutoresizingMaskIntoConstraints = false

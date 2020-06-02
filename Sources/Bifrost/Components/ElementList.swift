@@ -48,6 +48,8 @@ private class ElementListView: UIView, UITableViewDataSource, UITableViewDelegat
     }
     var delegate: DynamicActionDelegate
     
+    let creator = DynamicViewCreator()
+    
     var color: UIColor? {
         didSet {
             tableView.backgroundColor = color
@@ -102,7 +104,7 @@ private class ElementListView: UIView, UITableViewDataSource, UITableViewDelegat
             v.removeFromSuperview()
         }
         let component = components[indexPath.row]
-        if let view = try? DynamicView.createView(dynamicsComponent: component,
+        if let view = try? creator.createView(dynamicsComponent: component,
                                                   actionDelegate: delegate) {
             cell.contentView.addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false

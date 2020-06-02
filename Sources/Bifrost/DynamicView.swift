@@ -1,7 +1,7 @@
 
 import UIKit
 
-public class DynamicView: NSObject {
+public class DynamicViewCreator: NSObject {
 
     public func createView(dynamicsComponent: DynamicComponent,
                                   actionDelegate: DynamicActionDelegate) throws -> UIView {
